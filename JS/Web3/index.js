@@ -1,5 +1,5 @@
 
-var web3 = new Web3('http://localhost:7545');
+var web3 = new Web3('http://localhost:3300');
 
 /*
 Connects with the abi and the smart contract adress to the SC
