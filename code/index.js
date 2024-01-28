@@ -50,7 +50,7 @@ const abi = [
         "type": "function"
     }
 ];
-const spec_smart_contract = new web3.eth.Contract(abi, smart_contract);
+var spec_smart_contract = new web3.eth.Contract(abi, smart_contract);
 
 
 /*
@@ -59,7 +59,7 @@ Function gets the params from the html form
 function get_params(){
     let km = document.getElementById("km").value
     let passenger = document.getElementById("passenger").value
-    spec_smart_contract.methods.set_both(km, passenger);
+    ask_standard_stuff()
 }
 
 /*
