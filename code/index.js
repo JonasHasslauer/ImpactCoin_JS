@@ -3,7 +3,7 @@ var web3 = new Web3('http://localhost:7545');
 /*
 Connects with the abi and the smart contract adress to the SC
  */
-const smart_contract = "0xdDb68Efa4Fdc889cca414C0a7AcAd3C5Cc08A8C5";
+const smart_contract_ic_logic = "0xdDb68Efa4Fdc889cca414C0a7AcAd3C5Cc08A8C5";
 const abi = [
     {
         "inputs": [],
@@ -50,16 +50,15 @@ const abi = [
         "type": "function"
     }
 ];
-var spec_smart_contract = new web3.eth.Contract(abi, smart_contract);
+var spec_smart_contract = new web3.eth.Contract(abi, smart_contract_ic_logic);
 
 
 /*
 Function gets the params from the html form
  */
-function get_params(){
+function get_params_from_form(){
     let km = document.getElementById("km").value
     let passenger = document.getElementById("passenger").value
-    ask_standard_stuff()
 }
 
 /*
