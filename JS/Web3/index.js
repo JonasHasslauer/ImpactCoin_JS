@@ -350,7 +350,6 @@ function calculate_co2_emissions(){
 }
 
 function send_coins(){
-    return null;
     //m. E. n müsste nur die "Transfer"-Funktion im Smart Contract aufgerufen werden
 
 }
