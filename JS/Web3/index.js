@@ -344,9 +344,15 @@ function get_params(){
     }
     console.log(form_km, form_passenger, form_co2e, form_action);
 }
-function send_params_to_smart_contract(){
+function calculate_co2_emissions(){
     //has to be defined
     return null;
+}
+
+function send_coins(){
+    return null;
+    //m. E. n müsste nur die "Transfer"-Funktion im Smart Contract aufgerufen werden
+
 }
 
 
