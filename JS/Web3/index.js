@@ -329,15 +329,13 @@ Function gets the params from the html form
  */
 
 function get_params(){
-
     //get the params from the html form
     form_km = document.getElementById("km").value
-    form_passenger = document.getElementById("passenger").value
+    form_passenger = document.getElementById("passagiere").value
     form_action = document.getElementById("action-select").value
 
     // if co2e did not get filled in the html, take a standard value from the climatic api
     if (document.getElementById("co2e") === "" || document.getElementById("co2e") == null){
-        //console.log(document.getElementById("co2e").value)
         form_co2e = get_car_emissions_from_api(form_km, custom_id_petrol_car, data_version, source_lca_activity);
     }else {
         form_co2e = document.getElementById("co2e").value
