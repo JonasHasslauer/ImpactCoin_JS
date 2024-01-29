@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html >
 <head>
-    <title>Register information at Blockchain</title>
+    <title>ImpactCoin</title>
 
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
@@ -10,6 +10,15 @@
         div, label {
             margin-bottom: 20px;
             margin-top: 20px;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        .btn-primary {
+            width: 150px;
+            margin-left: 205px;
         }
 
     </style>
@@ -27,7 +36,8 @@
 <br>
 <form id="form" class="form-horizontal">
 
-    <div>
+    <label class="col-sm-2 control-label">Aktion</label>
+    <div class="col-sm-10">
         <select name="Action" id="action-select" class="form-control">
         </option>
         <option value="Tree">Baum pflanzen</option>
@@ -48,7 +58,7 @@
     </div>
     <br>
     <br>
-    <input type="submit" value="Senden" class="btn btn-primary" onclick="get_params()"/>
+    <input type="submit" value="Senden" class="btn btn-primary" onclick="on_Click()"/>
 </form>
 
 <div id = "textField">

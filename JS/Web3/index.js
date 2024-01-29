@@ -16,7 +16,7 @@ async function connect() {
 /*
 Connects with the smart contract using the abi and the smart contract address
  */
-const smart_contract_token = "0xd9145CCE52D386f254917e481eB44e9943F39138";
+const smart_contract_token = "0xd6B92e1EC145b93bd6Fae3b8a9CB41C737Ce9e74";
 const abi = [
     {
         "inputs": [
@@ -70,54 +70,6 @@ const abi = [
         "type": "event"
     },
     {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_spender",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_value",
-                "type": "uint256"
-            }
-        ],
-        "name": "approve",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_value",
-                "type": "uint256"
-            }
-        ],
-        "name": "transfer",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
         "anonymous": false,
         "inputs": [
             {
@@ -143,33 +95,23 @@ const abi = [
         "type": "event"
     },
     {
+        "anonymous": false,
         "inputs": [
             {
+                "indexed": false,
                 "internalType": "address",
-                "name": "_from",
+                "name": "currentAddress",
                 "type": "address"
             },
             {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_value",
-                "type": "uint256"
+                "indexed": false,
+                "internalType": "string",
+                "name": "message",
+                "type": "string"
             }
         ],
-        "name": "transferFrom",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
+        "name": "successfull",
+        "type": "event"
     },
     {
         "inputs": [
@@ -217,6 +159,30 @@ const abi = [
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_spender",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "approve",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -272,6 +238,32 @@ const abi = [
     },
     {
         "inputs": [],
+        "name": "get_CoinOwner_Adress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "get_current_sender_adress",
+        "outputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "name",
         "outputs": [
             {
@@ -281,6 +273,19 @@ const abi = [
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "action_",
+                "type": "string"
+            }
+        ],
+        "name": "set_action",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -308,6 +313,83 @@ const abi = [
         ],
         "stateMutability": "view",
         "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "transfer",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_from",
+                "type": "address"
+            },
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "transferFrom",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_to",
+                "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "transfer_ImpactCoin",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
     }
 ];
 var spec_smart_contract = new web3.eth.Contract(abi, smart_contract_token);
@@ -323,6 +405,14 @@ let form_co2e;
 let form_km;
 let form_passenger;
 let form_action;
+
+function on_Click(){
+    get_params();
+    let calculated_emissions = calculate_co2_emissions();
+    console.log(get_current_address(), calculated_emissions)
+    //spec_smart_contract.transfer_ImpactCoin.call(get_current_address());
+    console.log("Emissions: ", calculated_emissions, "-> coins sent");
+}
 
 /*
 Function gets the params from the html form
@@ -342,9 +432,9 @@ function get_params(){
     }
     console.log(form_km, form_passenger, form_co2e, form_action);
 }
-function calculate_co2_emissions(){
-    //has to be defined
-    return null;
+async function calculate_co2_emissions(){
+    return form_co2e;
+    console.log("calculated co2: ", form_co2e)
 }
 
 function send_coins(){
@@ -363,10 +453,9 @@ function send_coins(){
 
 
 
-async function get_contracts(){
+async function get_current_address(){
     const account = await web3.eth.getAccounts();
-    const currentAccount = account[0];
-    console.log("Current Account: " + currentAccount)
+    return account[0];
 }
 
 
