@@ -128,8 +128,6 @@ contract ImpactCoin is Token {
   Was muss die dritte Partei erfüllt haben, damit sie berechtigt ist zu entscheiden, ob die Handlung verifiziert wird
   */
 
-
-
   function get_CoinOwner_Adress() public view returns(address){
     return initialCoinOwner;
   }
