@@ -5,18 +5,16 @@ class Climatiq {
     static MY_API_KEY = "ZDDQA9ZW80M9FVN83NYE3QF9CEW5";
     static url = "https://beta4.api.climatiq.io/estimate";
 
-    constructor(passengers, distance, customId, dataVersion, sourceLcaActivity) {
+    constructor(distance, customId, dataVersion, sourceLcaActivity) {
         this.authorizationHeaders = { "Authorization": `Bearer: ${Climatiq.MY_API_KEY}` };
         this.sourceLcaActivity = sourceLcaActivity;
         this.dataVersion = dataVersion;
         this.activityId = customId;
-        this.passengers = passengers;
         this.distance = distance;
     }
 
     calculateCo2e() {
         const parameters = {
-            passengers: this.passengers,
             distance: this.distance,
             distance_unit: "km"
         };
@@ -44,7 +42,7 @@ async function fetchData(url, data, headers) {
 
     return response.json();
 }
-
+/*
 const carOnePerson = new Climatiq(passenger = 1,
     1,
     "passenger_vehicle-vehicle_type_car-fuel_source_bio_petrol-distance_na-engine_size_medium",
@@ -53,3 +51,4 @@ const carOnePerson = new Climatiq(passenger = 1,
 
 const carOne = fetchData(Climatiq.url, carOnePerson.calculateCo2e(), carOnePerson.authorizationHeaders);
 
+*/

@@ -55,7 +55,7 @@ contract ImpactCoin is Token {
 
   constructor(uint256 _initialAmount, string memory _tokenName, uint8 _decimalUnits, string  memory _tokenSymbol) {
     balances[msg.sender] = _initialAmount;
-    initialCoinOwner = msg.sender;           // Give the creator all initial tokens
+    initialCoinOwner = address(this);           // Give the creator all initial tokens
     totalSupply = _initialAmount;                        // Update total supply
     name = _tokenName;                                   // Set the name for display purposes
     decimals = _decimalUnits;                            // Amount of decimals for display purposes
@@ -96,28 +96,6 @@ contract ImpactCoin is Token {
     return allowed[_owner][_spender];
   }
 
-  address currentAddress = address(this);
-
-  string action;
-  event successfull(address currentAddress, string message);
-
-  function set_action(string memory action_) public {
-    action = action_;
-    emit successfull(currentAddress, "Action was set");
-  }
-
-  function get_current_sender_adress() public view returns(address){
-    return msg.sender;
-  }
-
-  function transfer_ImpactCoin(address _to, uint256 _value) public returns (bool){
-    require(balances[initialCoinOwner] >= _value);
-    balances[_to] += _value;
-    balances[initialCoinOwner] -= _value;
-    emit Transfer(initialCoinOwner, _to, _value); //solhint-disable-line indent, no-unused-vars
-    return true;
-  }
-
   /*
   Hier fehlt noch eine Funktion, um die umweltfreundlichen Handlungen zu validieren. Sollte eine solche Funktion
   nicht eingebunden sein, könnte jeder über die Website auswählen, dass er läuft - obwohl er es eig. nicht tut.
@@ -127,10 +105,20 @@ contract ImpactCoin is Token {
   Verifikation durch eine dritte Partei?
   Was muss die dritte Partei erfüllt haben, damit sie berechtigt ist zu entscheiden, ob die Handlung verifiziert wird
   */
+"
+  function transferImpactCoin(address _to, uint256 _value) public returns (bool success) {
+    require(balances[initialCoinOwner] >= _value, "token balance is lower than the value requested");
+    balances[initialCoinOwner] -= _value;
+    balances[_to] += _value;
+    emit Transfer(initialCoinOwner, _to, _value); //solhint-disable-line indent, no-unused-vars
+    return true;
+  }
 
-  function get_CoinOwner_Adress() public view returns(address){
+  function get_CoinOwner_Address() public view returns(address coinOwner){
     return initialCoinOwner;
   }
 
-
+  function getBalance(address addr) public view returns(uint) {
+    return balances[addr];
+  }
 }

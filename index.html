@@ -3,8 +3,10 @@
 <head>
     <title>ImpactCoin</title>
 
+    <link rel="icon" type="image/x-icon" href="/images/icon.png">
+
+
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <style>
         div, label {
@@ -25,13 +27,11 @@
 </head>
 
 <body class="container">
-<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
-<!-- <script src="JS/Climatiq/'node-fetch'" type="module"></script> -->
 <script src="Climatiq/Climatiq.js"></script>
 <script src="index.js"></script>
 
 <h1 class="page-header">Impact Coin</h1>
-<button type="button" value="wert" onclick="get_params()" style=" width:40px; height:40px; background:url('images/metamask.ico'); background-position: left; background-size:30px; background-repeat: no-repeat; padding: 10px; border: none"></button>
+<button type="button" value="wert" onclick="connect()" style=" width:40px; height:40px; background:url('images/metamask.ico'); background-position: left; background-size:30px; background-repeat: no-repeat; padding: 10px; border: none"></button>
 <br>
 <br>
 <form id="form" class="form-horizontal">
@@ -41,21 +41,21 @@
         <select name="Action" id="action-select" class="form-control">
         </option>
         <option value="Tree">Baum pflanzen</option>
-        <option value="Laufen" selected>Zu Fuß gehen</option>
+        <option value="Laufen" selected>Gehen statt Auto fahren</option>
         </select>
     </div>
     <label class="col-sm-2 control-label">Kilometer</label>
     <div class="col-sm-10">
         <input id="km" name="km" type="number" class="form-control" placeholder="Kilometer" />
     </div>
-    <label class="col-sm-2 control-label">Emissionen des Autos</label>
+    <!-- <label class="col-sm-2 control-label">Emissionen des Autos</label>
     <div class="col-sm-10">
         <input id="co2e" name="co2e" type="number" step="any" class="form-control" placeholder="Wird das Feld leer gelassen, wird ein Standart-Wert genommen" />
     </div>
     <label class="col-sm-2 control-label">Passagiere</label>
     <div class="col-sm-10">
         <input id="passagiere" name="passagiere" type="number" class="form-control" placeholder= "Wie viel Leute nimmst du normalerweise immer mit?" />
-    </div>
+    </div> -->
     <br>
     <br>
     <input type="submit" value="Senden" class="btn btn-primary" onclick="on_Click()"/>
