@@ -358,19 +358,25 @@ let form_action;
 
 async function on_Click() {
     get_params();
-    await contract.transferCoins(await get_current_address(), 10)
-        .send({
-            from: addressOwner,
-        }).then(receipt=> {consol.log(JSON.stringify(receipt))});
     await getBalance();
+    try {
+        await contract.methods.transferCoins(await get_current_address(), 100)
+            .send()
+            .then(receipt => {console.log(receipt)});
+        // Successful transaction
+    } catch (error) {
+        console.error(error);
+        // Display an error message to the user
+        alert('There was an error creating your post. Please try again.');
+    }
 
 }
 
 async function getBalance(){
-    await console.table(contract.methods.balanceOf(await get_current_address())
+    await contract.methods.balanceOf(await get_current_address())
         .call().then(function (number){
             document.getElementById('textField').innerHTML = "Impact Coins: " + number;
-        }));
+        });
 }
 
 
