@@ -23,8 +23,8 @@ contract("ImpactCoin", (accounts) => {
         ).toNumber();
 
         // Make transaction from first account to second.
-        const amount = 100000000000;
-        await impactCoinInstance.transferImpactCoin(accountTwo, amount, { from: accountTwo });
+        const amount = 10;
+        await impactCoinInstance.transferImpactCoin(accountTwo, amount, { from: accountOne });
 
         // Get balances of first and second account after the transactions.
         const accountOneEndingBalance = (

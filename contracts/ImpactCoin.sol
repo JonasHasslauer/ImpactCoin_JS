@@ -13,7 +13,7 @@ interface Token {
   /// @param _to The address of the recipient
   /// @param _value The amount of token to be transferred
   /// @return success Whether the transfer was successful or not
-  function transfer(address _to, uint256 _value)  external returns (bool success);
+  function transferCoins(address _to, uint256 _value)  external returns (bool success);
 
   /// @notice send `_value` token to `_to` from `_from` on the condition it is approved by `_from`
   /// @param _from The address of the sender
@@ -42,12 +42,7 @@ contract ImpactCoin is Token {
   mapping (address => uint256) public balances;
   mapping (address => mapping (address => uint256)) public allowed;
   uint256 public totalSupply;
-  /*
-  NOTE:
-  The following variables are OPTIONAL vanities. One does not have to include them.
-  They allow one to customise the token contract & in no way influences the core functionality.
-  Some wallets/interfaces might not even bother to look at this information.
-  */
+
   string public name;                   //fancy name: eg Simon Bucks
   uint8 public decimals;                //How many decimals to show.
   string public symbol;
@@ -62,7 +57,7 @@ contract ImpactCoin is Token {
     symbol = _tokenSymbol;                               // Set the symbol for display purposes
   }
 
-  function transfer(address _to, uint256 _value) public override returns (bool success) {
+  function transferCoins(address _to, uint256 _value) public override returns (bool success) {
     require(balances[msg.sender] >= _value, "token balance is lower than the value requested");
     balances[msg.sender] -= _value;
     balances[_to] += _value;
@@ -94,24 +89,6 @@ contract ImpactCoin is Token {
 
   function allowance(address _owner, address _spender) public override view returns (uint256 remaining) {
     return allowed[_owner][_spender];
-  }
-
-  /*
-  Hier fehlt noch eine Funktion, um die umweltfreundlichen Handlungen zu validieren. Sollte eine solche Funktion
-  nicht eingebunden sein, könnte jeder über die Website auswählen, dass er läuft - obwohl er es eig. nicht tut.
-
-  ähnlich zur 'allowed/allowance'-funktion?
-
-  Verifikation durch eine dritte Partei?
-  Was muss die dritte Partei erfüllt haben, damit sie berechtigt ist zu entscheiden, ob die Handlung verifiziert wird
-  */
-"
-  function transferImpactCoin(address _to, uint256 _value) public returns (bool success) {
-    require(balances[initialCoinOwner] >= _value, "token balance is lower than the value requested");
-    balances[initialCoinOwner] -= _value;
-    balances[_to] += _value;
-    emit Transfer(initialCoinOwner, _to, _value); //solhint-disable-line indent, no-unused-vars
-    return true;
   }
 
   function get_CoinOwner_Address() public view returns(address coinOwner){

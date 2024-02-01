@@ -1,12 +1,12 @@
 //<script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
 const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
+//const web3 = new Web3(window.ethereum);
 
 /*
 Login function to connect with the Metamask-Wallet
  */
 async function connect() {
     if (window.ethereum) {
-        await window.ethereum.request({method: "eth_requestAccounts"});
         window.web3 = new Web3(window.ethereum);
     } else {
         console.log("No wallet");
@@ -15,10 +15,8 @@ async function connect() {
 
 /*
 Connects with the smart contract using the abi and the smart contract address
-
-
  */
-const smart_contract_token = "0x5e6ab153122A2a7c741d2080B1186803f9539e72";
+const contract_address = "0xc847BB5d318685A09aDe913DfCC9eCf735ddE3E3";
 const abi =[
     {
         "inputs": [
@@ -303,7 +301,7 @@ const abi =[
                 "type": "uint256"
             }
         ],
-        "name": "transfer",
+        "name": "transferCoins",
         "outputs": [
             {
                 "internalType": "bool",
@@ -342,33 +340,12 @@ const abi =[
         ],
         "stateMutability": "nonpayable",
         "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_to",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "_value",
-                "type": "uint256"
-            }
-        ],
-        "name": "transferImpactCoin",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "success",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
     }
 ];
-var spec_smart_contract = new web3.eth.Contract(abi, smart_contract_token);
+const contract = new web3.eth.Contract(abi, contract_address);
+
+const addressOwner = "0x1D5adaD7a1e26C8D04b82d1a4B6898f705b080eD"
+
 /*
 Definitionen, die notwendig für den API-Call sind
  */
@@ -381,8 +358,22 @@ let form_action;
 
 async function on_Click() {
     get_params();
-    console.table(spec_smart_contract.methods);
+    await contract.transferCoins(await get_current_address(), 10)
+        .send({
+            from: addressOwner,
+        }).then(receipt=> {consol.log(JSON.stringify(receipt))});
+    await getBalance();
+
 }
+
+async function getBalance(){
+    await console.table(contract.methods.balanceOf(await get_current_address())
+        .call().then(function (number){
+            document.getElementById('textField').innerHTML = "Impact Coins: " + number;
+        }));
+}
+
+
 
 /*
 Function gets the params from the html form
@@ -392,23 +383,34 @@ function get_params() {
     //get the params from the html form
     form_km = document.getElementById("km").value
     form_action = document.getElementById("action-select").value
-    console.log(form_action, form_km);
+    console.table(form_action, form_km);
 }
-
 
 function get_car_emissions_from_api(distance, customId, dataVersion, sourceLcaActivity) {
     let api_object = new Climatiq(distance, customId, dataVersion, sourceLcaActivity);
     api_object = fetchData(Climatiq.url, api_object.calculateCo2e(), api_object.authorizationHeaders);
-    return api_object.then(function (result) {
-        return (result.co2e);
-    });
+    return null;
 }
 
 
 async function get_current_address() {
-    let accounts = [];
-    accounts = await web3.eth.getAccounts();
-    return accounts[0];
+    let walletAddress = "";
+        if (window.ethereum) {
+            //console.log("Metamask");
+            window.web3 = new Web3(window.ethereum);
+            await window.ethereum.enable();
+            const ethereum = window.ethereum;
+            walletAddress = ethereum.selectedAddress;
+            //console.log("Wallet address", walletAddress);
+        } else if (window.web3) {
+            console.log("Update metamask");
+            alert("Update metamask");
+        } else {
+            console.log("Install metamask");
+            alert("Install metamask");
+        }
+        document.getElementById('account').innerHTML = "Account: " + walletAddress;
+        return walletAddress;
 }
 
 

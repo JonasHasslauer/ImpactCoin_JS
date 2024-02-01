@@ -23,6 +23,14 @@
             margin-left: 205px;
         }
 
+        .konto {
+            margin-top: 50px;
+            width: 300px;
+            heigth: 50px;
+            color: seagreen;
+            text-align: center;
+        }
+
     </style>
 </head>
 
@@ -32,9 +40,15 @@
 
 <h1 class="page-header">Impact Coin</h1>
 <button type="button" value="wert" onclick="connect()" style=" width:40px; height:40px; background:url('images/metamask.ico'); background-position: left; background-size:30px; background-repeat: no-repeat; padding: 10px; border: none"></button>
+<div id = "account" class="account">
+    <script>get_current_address()</script>
+</div>
+<div id = "textField" class="kontostand">
+    <script>getBalance()</script>
+</div>
 <br>
 <br>
-<form id="form" class="form-horizontal">
+<form id="form" class="form-horizontal" method="get">
 
     <label class="col-sm-2 control-label">Aktion</label>
     <div class="col-sm-10">
@@ -61,9 +75,7 @@
     <input type="submit" value="Senden" class="btn btn-primary" onclick="on_Click()"/>
 </form>
 
-<div id = "textField">
-    <p id = "currentBalance">Current Balance of ImpactCoins:</p>
-</div>
+
 
 </div>
 
