@@ -47,6 +47,7 @@ contract ImpactCoin is Token {
   uint8 public decimals;                //How many decimals to show.
   string public symbol;
   address initialCoinOwner;             //An identifier: eg SBX
+  uint cashOut_per_Week = 10;
 
   constructor(uint256 _initialAmount, string memory _tokenName, uint8 _decimalUnits, string  memory _tokenSymbol) {
     balances[msg.sender] = _initialAmount;
@@ -64,6 +65,15 @@ contract ImpactCoin is Token {
     emit Transfer(msg.sender, _to, _value); //solhint-disable-line indent, no-unused-vars
     return true;
   }
+
+  /*
+  Funktionen, dass der Betrag pro Nutzer oder Woche begrenzt ist
+
+
+
+  ..@author
+
+  */
 
   function transferFrom(address _from, address _to, uint256 _value) public override returns (bool success) {
     uint256 allowance = allowed[_from][msg.sender];
@@ -98,4 +108,5 @@ contract ImpactCoin is Token {
   function getBalance(address addr) public view returns(uint) {
     return balances[addr];
   }
+
 }

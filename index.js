@@ -4,7 +4,7 @@ const web3 = new Web3(new Web3.providers.HttpProvider('http://localhost:7545'));
 
 /*
 Login function to connect with the Metamask-Wallet
- */
+
 async function connect() {
     if (window.ethereum) {
         window.web3 = new Web3(window.ethereum);
@@ -12,6 +12,7 @@ async function connect() {
         console.log("No wallet");
     }
 }
+*/
 
 /*
 Connects with the smart contract using the abi and the smart contract address
@@ -359,17 +360,7 @@ let form_action;
 async function on_Click() {
     get_params();
     await getBalance();
-    try {
-        await contract.methods.transferCoins(await get_current_address(), 100)
-            .send()
-            .then(receipt => {console.log(receipt)});
-        // Successful transaction
-    } catch (error) {
-        console.error(error);
-        // Display an error message to the user
-        alert('There was an error creating your post. Please try again.');
-    }
-
+    await contract.transferCoins(await get_current_address(), amount, { from: addressOwner });
 }
 
 async function getBalance(){
@@ -416,6 +407,7 @@ async function get_current_address() {
             alert("Install metamask");
         }
         document.getElementById('account').innerHTML = "Account: " + walletAddress;
+        getBalance();
         return walletAddress;
 }
 

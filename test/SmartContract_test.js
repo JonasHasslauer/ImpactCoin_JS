@@ -1,11 +1,10 @@
 const ImpactCoin = artifacts.require("ImpactCoin");
 
 contract("ImpactCoin", (accounts) => {
-    it("should put 100000000000000 ImpactCoin in the first account", async () => {
+    it("should put 100000 ImpactCoin in the first account", async () => {
         const impactCoinInstance = await ImpactCoin.deployed();
         const balance = await impactCoinInstance.getBalance.call(accounts[0]);
-
-        assert.equal(balance.valueOf(), 100000000000000, "100000000000000 wasn't in the first account");
+        assert.equal(balance.valueOf(), 100000, "100000 wasn't in the first account");
     });
     it("should send coin correctly", async () => {
         const impactCoinInstance = await ImpactCoin.deployed();
@@ -24,7 +23,7 @@ contract("ImpactCoin", (accounts) => {
 
         // Make transaction from first account to second.
         const amount = 10;
-        await impactCoinInstance.transferImpactCoin(accountTwo, amount, { from: accountOne });
+        await impactCoinInstance.transferCoins(accountTwo, amount, { from: accountOne });
 
         // Get balances of first and second account after the transactions.
         const accountOneEndingBalance = (
@@ -45,16 +44,4 @@ contract("ImpactCoin", (accounts) => {
             "Amount wasn't correctly sent to the receiver"
         );
     });
-    /*
-    it ("should deliver the right CoinOwner-Adress", async() => {
-        const impactCoinInstance_drei = await ImpactCoin.deployed();
-        const accountOne = accounts[0];
-        const InitialCoinOwner = impactCoinInstance_drei.get_CoinOwner_Address.call();
-        console.log(accounts[0], InitialCoinOwner);
-
-        assert.equal(accounts[0],
-            InitialCoinOwner,
-            "Coin Owner not correct")
-    });
-    */
 });
