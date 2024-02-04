@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html >
+<html lang="de" >
 <head>
+    <meta charset="UTF-8">
     <title>ImpactCoin</title>
 
     <link rel="icon" type="image/x-icon" href="/images/icon.png">
@@ -9,19 +10,38 @@
     <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
     <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <style>
-        div, label {
-            margin-bottom: 20px;
-            margin-top: 20px;
+        body{
+            height: 100%;
+            background-image: url("hintergrund.jpg");
+            background-repeat: no-repeat;
+            background-size: cover;
         }
+        .page-header{
+            color: #ffffff;
+            font-size: 50px;
+        }
+        div, label {
+            text-align: center;
+            margin-bottom: 30px;
 
+        }
         label {
+            color: white;
+            font-size: 20px;
             text-align: left;
         }
 
         .btn-primary {
-            width: 150px;
-            margin-left: 205px;
+            font-size: 20px;
+            border-radius: 50px;
+            color: black;
+            background: #61b37a;
+            width: 300px;
+            height: 80px;
+            align-items: center;
+            outline: solid;
         }
+
 
     </style>
 </head>
@@ -30,7 +50,7 @@
 <script src="Climatiq/Climatiq.js"></script>
 <script src="index.js"></script>
 
-<h1 class="page-header">Impact Coin</h1>
+<h1 align="center" class="page-header">Wähle deine Aktion:</h1>
 <button type="button" value="wert" onclick="connect()" style=" width:40px; height:40px; background:url('images/metamask.ico'); background-position: left; background-size:30px; background-repeat: no-repeat; padding: 10px; border: none"></button>
 <div id = "account" class="account">
     <script>get_current_address()</script>
@@ -64,11 +84,12 @@
     </div> -->
     <br>
     <br>
-    <input type="submit" value="Senden" class="btn btn-primary" onclick="on_Click()"/>
+    <br>
 </form>
+</div>
 
-
-
+<div>
+    <input size="10" type="submit" value="Bestätigen" class="btn btn-primary" onclick="on_Click()"/>
 </div>
 
 <script>
