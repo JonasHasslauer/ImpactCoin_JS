@@ -17,8 +17,8 @@ async function connect() {
 /*
 Connects with the smart contract using the abi and the smart contract address
  */
-const contract_address = "0xc847BB5d318685A09aDe913DfCC9eCf735ddE3E3";
-const abi =[
+const contract_address = "0x648A16edC00dfdEA0F243f6bF4A0e26Cf5429156";
+const abi = [
     {
         "inputs": [
             {
@@ -40,6 +40,11 @@ const abi =[
                 "internalType": "string",
                 "name": "_tokenSymbol",
                 "type": "string"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_payoutAmount",
+                "type": "uint256"
             }
         ],
         "stateMutability": "nonpayable",
@@ -206,6 +211,25 @@ const abi =[
         "type": "function"
     },
     {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "action",
+                "type": "string"
+            }
+        ],
+        "name": "calculateReward",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [],
         "name": "decimals",
         "outputs": [
@@ -239,6 +263,19 @@ const abi =[
     },
     {
         "inputs": [],
+        "name": "getPayoutAmount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "amount",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
         "name": "get_CoinOwner_Address",
         "outputs": [
             {
@@ -261,6 +298,44 @@ const abi =[
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "payout",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "_value",
+                "type": "uint256"
+            }
+        ],
+        "name": "requestCoins",
+        "outputs": [
+            {
+                "internalType": "bool",
+                "name": "success",
+                "type": "bool"
+            }
+        ],
+        "stateMutability": "nonpayable",
         "type": "function"
     },
     {
@@ -345,7 +420,7 @@ const abi =[
 ];
 const contract = new web3.eth.Contract(abi, contract_address);
 
-const addressOwner = "0x1D5adaD7a1e26C8D04b82d1a4B6898f705b080eD"
+var currentAddress = "";
 
 /*
 Definitionen, die notwendig für den API-Call sind
@@ -358,13 +433,20 @@ let form_km;
 let form_action;
 
 async function on_Click() {
+
+    currentAddress = await get_current_address();
+
     get_params();
     await getBalance();
-    await contract.transferCoins(await get_current_address(), amount, { from: addressOwner });
+    //private key für Transaktion
+    await contract.methods.requestCoins(20)
+        .send({from: currentAddress});
+    //console.table(contract);
+    await getBalance()
 }
 
 async function getBalance(){
-    await contract.methods.balanceOf(await get_current_address())
+    await contract.methods.balanceOf(currentAddress)
         .call().then(function (number){
             document.getElementById('textField').innerHTML = "Impact Coins: " + number;
         });
@@ -407,7 +489,6 @@ async function get_current_address() {
             alert("Install metamask");
         }
         document.getElementById('account').innerHTML = "Account: " + walletAddress;
-        getBalance();
         return walletAddress;
 }
 

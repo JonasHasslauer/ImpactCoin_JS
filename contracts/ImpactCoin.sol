@@ -48,25 +48,44 @@ contract ImpactCoin is Token {
   uint8 public decimals;                //How many decimals to show.
   string public symbol;
   address initialCoinOwner;             //An identifier: eg SBX
-  uint payout_per_Week = 5;
+  uint256 max_payout;
 
-  constructor(uint256 _initialAmount, string memory _tokenName, uint8 _decimalUnits, string  memory _tokenSymbol) {
-    balances[msg.sender] = _initialAmount;
-    initialCoinOwner = address(this);           // Give the creator all initial tokens
+  constructor(uint256 _initialAmount, string memory _tokenName, uint8 _decimalUnits, string  memory _tokenSymbol, uint256 _payoutAmount) {
+    balances[address(this)] = _initialAmount;
+    initialCoinOwner = address(this);
+    max_payout = _payoutAmount;
     totalSupply = _initialAmount;                        // Update total supply
     name = _tokenName;                                   // Set the name for display purposes
     decimals = _decimalUnits;                            // Amount of decimals for display purposes
     symbol = _tokenSymbol;                               // Set the symbol for display purposes
   }
 
+  /*
+  Berechnung der einzelnen Werte für Gehen oder Baum pflanzen fehlt noch
+  */
+  function calculateReward(string memory action) public returns (uint256){
+
+  }
+
   function transferCoins(address _to, uint256 _value) public override returns (bool success) {
-    //transfers only coins, if the receiver got less than five times coins
-    if (payout[_to] < payout_per_Week){
+    //transfers only coins, if the receiver got less than <payout_per_Week> coins - in this case 5 times
+    if (payout[_to] < max_payout){
       require(balances[msg.sender] >= _value, "token balance is lower than the value requested");
       balances[msg.sender] -= _value;
       balances[_to] += _value;
       emit Transfer(msg.sender, _to, _value); //solhint-disable-line indent, no-unused-vars
       payout[_to] += 1;
+      return true;
+    }else return false;
+  }
+
+  function requestCoins(uint _value) public returns (bool success){
+    if (payout[msg.sender] < max_payout){
+    require(balances[address(this)] >= _value, "token balance is lower than the value requested");
+    balances[address(this)] -= _value;
+    balances[msg.sender] += _value;
+      payout[msg.sender] += _value;
+    emit Transfer(address(this), msg.sender, _value); //solhint-disable-line indent, no-unused-vars
       return true;
     }else return false;
   }
