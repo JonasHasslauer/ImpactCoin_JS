@@ -1,155 +1,76 @@
 <!DOCTYPE html>
-<html lang="de" >
+<html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>ImpactCoin</title>
-
+    <title>Willkommen bei ImpactCoin</title>
     <link rel="icon" type="image/x-icon" href="/images/icon.png">
-
-    <link href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' rel='stylesheet' type='text/css'>
-    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
     <style>
-        .headline{
-            color: white;
-            text-align: center;
-            font-size: 35px;
-        }
         body{
+            font-family: Calibri, sans-serif;
             height: 100%;
             width: 100%;
-            background-image: url("hintergrund.jpg");
+            background-image: url("images/wald.jpg");
             background-repeat: no-repeat;
             background-size: cover;
-            font-family: Calibri, sans-serif;
-        }
-        div, label {
-            margin-bottom: 30px;
-        }
-        form{
-            width: 900px;
-            margin: auto;
-        }
-        label {
-            color: white;
-            font-size: 20px;
-            text-align: left;
-        }
-
-        .btn-primary {
-            margin: auto;
-            font-size: 20px;
-            border-radius: 50px;
-            color: black;
-            background: #39b070;
-            width: 300px;
-            height: 80px;
-            align-items: center;
-            outline: solid;
-            outline-color: #68d096;
-            text-align: center;
-            font-weight: bolder;
-        }
-        .btn-primary:hover{
-            background-color: #61b37a;
-        }
-        .account{
-            color: white;
-            font-size: 14px;
         }
         .linksoben{
-            width: 500px;
-            height: 110px;
+            font-size: 15px;
+            color: white;
+            margin-top: 20px;
+            margin-left: 50px;
+        }
+        .mitteltext{
+            color: white;
+            margin-top: 300px;
             text-align: center;
-            background-color: #165031;
-            border-top-right-radius: 50px;
-            border-bottom-right-radius: 50px;
         }
-        .metamaskdaten{
-            text-align: right;
-            margin-right: 20px;
-        }
-        .metalogo{
-            margin-right: 30px;
+        a{
+            color: white;
+            text-decoration: none;
         }
         .button{
-            text-align: center;
             margin: auto;
+            border-radius: 50px;
+            outline-color: black;
+            outline-width: thick;
+            width: 200px;
+            height: 60px;
+            background-color: white;
+            text-align: center;
+            vertical-align: middle;
+            opacity: 90%;
         }
-
+        .oben{
+            display: flex;
+            justify-content: space-between;
+        }
+        .navbar{
+            margin-right: 120px;
+            margin-top: 40px;
+            font-size: 22px;
+        }
 
     </style>
 </head>
-
 <body>
-<script src="Climatiq/Climatiq.js"></script>
-<script src="index.js"></script>
-
-
-
-<div class="linksoben">
-    <div class="logo">
-        <img src="icon.png" align="left" style="width: 100px; height: 100px; margin-top: 5px; margin-left: 5px">
+<div class="oben">
+    <div class="linksoben">
+        <h1>ImpactCoin.</h1>
+    </div>
+    <div class="navbar">
+        <a style="color: white; text-decoration: underline; margin-right: 20px" href="application.html">Jetzt Starten</a>
+        <a style="color: white; text-decoration: underline" href="ueberuns.html">Über uns</a>
 
     </div>
-    <div class="metamaskdaten">
-        <button class="metalogo" type="button" value="wert" onclick="connect()" style="margin-right: 180px; width:40px; height:40px; background:url('images/metamask.ico'); background-position: left; background-size:30px; background-repeat: no-repeat; padding: 10px; border: none"></button>
-        <br>
-        <div id = "account" class="account">
-        <script>get_current_address()</script>
-        </div>
-
-        <div id = "textField" class="kontostand">
-        <script>getBalance()</script>
-        </div>
-    </div>
 </div>
-
-<h1 class="headline" >Wähle deine Aktion:</h1>
-
-<div style="margin-right: 140px">
-    <br>
-    <br>
-    <br>
-    <br>
-    <form id="form" method="get">
-
-        <label class="col-sm-2 control-label" style="margin-top: 5px;font-size: 24px">Aktion</label>
-        <div class="col-sm-10">
-            <select name="Action" id="action-select" class="form-control" style="border-radius: 50px; height: 40px; font-size: 18px; color: black">
-                <option value="Tree">Baum pflanzen</option>
-                <option value="Laufen" selected>Gehen statt Auto fahren</option>
-            </select>
-        </div>
-        <label class="col-sm-2 control-label" style="margin-top: 5px; font-size: 24px" >Kilometer</label>
-        <div class="col-sm-10">
-            <input id="km" name="km" type="number" class="form-control" placeholder="Kilometer" style="border-radius: 50px; height: 40px; font-size: 18px; color: aliceblue"/>
-        </div>
-        <!-- <label class="col-sm-2 control-label">Emissionen des Autos</label>
-        <div class="col-sm-10">
-            <input id="co2e" name="co2e" type="number" step="any" class="form-control" placeholder="Wird das Feld leer gelassen, wird ein Standart-Wert genommen" />
-        </div>
-        <label class="col-sm-2 control-label">Passagiere</label>
-        <div class="col-sm-10">
-            <input id="passagiere" name="passagiere" type="number" class="form-control" placeholder= "Wie viel Leute nimmst du normalerweise immer mit?" />
-        </div> -->
-        <br>
-        <br>
-        <br>
-    </form>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
+<div class="mitteltext">
+    <h1 style="font-size: 60px">Bereit die Umwelt zu retten?</h1>
+    <h1 style="font-family: 'Helvetica', sans-serif">Mit einem kleinen Beitrag großes tun!</h1>
 </div>
-
+<br>
 <div class="button">
-    <input size="10" type="submit" value="Bestätigen >" class="btn btn-primary" onclick="on_Click()"/>
+    <br>
+    <a style="color: black; text-align: center; font-size: 19px; font-weight: bold" href="application.html">Jetzt Starten ></a>
 </div>
-
-<script>
-
-</script>
-
 </body>
 </html>
