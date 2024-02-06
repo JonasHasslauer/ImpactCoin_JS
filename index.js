@@ -426,6 +426,27 @@ Aus der HTML-Form
 let form_km;
 let form_action;
 
+async function get_current_address() {
+    let walletAddress = "";
+    if (window.ethereum) {
+        //console.log("Metamask");
+        window.web3 = new Web3(window.ethereum);
+        await window.ethereum.enable();
+        const ethereum = window.ethereum;
+        walletAddress = ethereum.selectedAddress;
+        console.log("Is Address: " + web3.utils.isAddress(walletAddress));
+        //console.log("Wallet address", walletAddress);
+    } else if (window.web3) {
+        console.log("Update metamask");
+        alert("Update metamask");
+    } else {
+        console.log("Install metamask");
+        alert("Install metamask");
+    }
+    document.getElementById('account').innerHTML = "<b>Account:</b> " + walletAddress;
+    return walletAddress;
+}
+
 async function on_Click() {
     get_params();
     let emissions = await get_car_emissions_from_api(Number(form_km), custom_id_petrol_car, data_version, source_lca_activity)
@@ -437,15 +458,7 @@ async function on_Click() {
     await getBalance();
     await contract.methods.requestCoins(rewardAmount)
         .send({from: await get_current_address()});
-    //console.table(contract);
     await getBalance()
-}
-
-async function getBalance(){
-    await contract.methods.balanceOf(await get_current_address())
-        .call().then(function (number){
-            document.getElementById('textField').innerHTML = "<b>Impact Coins:</b> " + number;
-        });
 }
 
 function get_params() {
@@ -460,26 +473,17 @@ async function get_car_emissions_from_api(distance, customId, dataVersion, sourc
     return data.co2e;
 }
 
-
-async function get_current_address() {
-    let walletAddress = "";
-        if (window.ethereum) {
-            //console.log("Metamask");
-            window.web3 = new Web3(window.ethereum);
-            await window.ethereum.enable();
-            const ethereum = window.ethereum;
-            walletAddress = ethereum.selectedAddress;
-            console.log("Is Address: " + web3.utils.isAddress(walletAddress));
-            //console.log("Wallet address", walletAddress);
-        } else if (window.web3) {
-            console.log("Update metamask");
-            alert("Update metamask");
-        } else {
-            console.log("Install metamask");
-            alert("Install metamask");
-        }
-        document.getElementById('account').innerHTML = "<b>Account:</b> " + walletAddress;
-        return walletAddress;
+async function getBalance(){
+    await contract.methods.balanceOf(await get_current_address())
+        .call().then(function (number){
+            document.getElementById('textField').innerHTML = "<b>Impact Coins:</b> " + number;
+        });
 }
+
+
+
+
+
+
 
 
