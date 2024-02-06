@@ -35,7 +35,7 @@
             text-align: left;
         }
 
-        .btn-primary {
+        .btn {
             margin: auto;
             font-size: 20px;
             border-radius: 50px;
@@ -49,12 +49,15 @@
             text-align: center;
             font-weight: bolder;
         }
-        .btn-primary:hover{
+        .btn:hover{
             background-color: #61b37a;
         }
-        .account{
+        .account, .kontostand{
             color: white;
             font-size: 14px;
+            font-style: italic;
+            margin: 0px;
+            text-align: left;
         }
         .linksoben{
             width: 500px;
@@ -66,7 +69,7 @@
         }
         .metamaskdaten{
             text-align: right;
-            margin-right: 20px;
+            margin-right: 10px;
         }
         .metalogo{
             margin-right: 30px;
@@ -96,6 +99,7 @@
         <br>
         <div id = "account" class="account">
         <script>get_current_address()</script>
+            <script>getBalance()</script>
         </div>
 
         <div id = "textField" class="kontostand">
@@ -136,7 +140,7 @@
 </div>
 
 <div class="button">
-    <input size="10" type="submit" value="Bestätigen >" class="btn btn-primary" onclick="on_Click()"/>
+    <input size="10" type="submit" value="Bestätigen >" class="btn btn" onclick="on_Click()"/>
 </div>
 
 <script>

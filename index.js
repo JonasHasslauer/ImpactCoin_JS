@@ -444,7 +444,7 @@ async function on_Click() {
 async function getBalance(){
     await contract.methods.balanceOf(await get_current_address())
         .call().then(function (number){
-            document.getElementById('textField').innerHTML = "Impact Coins: " + number;
+            document.getElementById('textField').innerHTML = "<b>Impact Coins:</b> " + number;
         });
 }
 
@@ -478,7 +478,7 @@ async function get_current_address() {
             console.log("Install metamask");
             alert("Install metamask");
         }
-        document.getElementById('account').innerHTML = "Account: " + walletAddress;
+        document.getElementById('account').innerHTML = "<b>Account:</b> " + walletAddress;
         return walletAddress;
 }
 
