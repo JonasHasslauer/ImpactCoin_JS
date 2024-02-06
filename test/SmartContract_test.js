@@ -82,7 +82,20 @@ contract("ImpactCoin", (accounts) => {
         await impactCoinInstance_vier.requestCoins(amount, {from: receiver});
         let var_payout_zwei = (await impactCoinInstance_vier.getPayoutAmount({from: receiver}));
         assert.equal(var_payout_zwei.toNumber(), 10, "Payout ist eins");
+    });
+
+    it ("should calculate the right amount of rewards", async () => {
+       const impactCoinInstance_sechs = await ImpactCoin.deployed();
+       const receiver = accounts[4]
+        //Baum
+       let reward = (await impactCoinInstance_sechs.calculateReward.call(1, 0, {from: receiver}));
+       assert.equal(reward.toNumber(), 15, "Reward ist 15 für einen Baum");
+       //läuft 10km statt 10 km zu fahren
+        let reward2 = (await impactCoinInstance_sechs.calculateReward.call(2, 10000, {from: receiver}));
+        assert.equal(reward2.toNumber(), (10000/1000) * 1, "Für Gehen werden (10000/1000) * 1 coins kalkuliert")
 
     });
+
+
 
 });

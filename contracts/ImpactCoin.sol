@@ -63,9 +63,24 @@ contract ImpactCoin is Token {
   /*
   Berechnung der einzelnen Werte für Gehen oder Baum pflanzen fehlt noch
   */
-  function calculateReward(string memory action) public returns (uint256){
-
+  function calculateReward(uint _action, uint _emissions) public view returns (uint reward){
+    uint factor = 0;
+    if(_action == 1){
+      //Baum pflanzen
+      factor = 15;
+      reward = factor;
+      return reward;
+    }else if (_action == 2){
+      //Gehen
+      factor = 1;
+      reward = factor * (_emissions / 1000);
+      return reward;
+    }else {
+      factor = 0;
+      return reward;
+    }
   }
+
 
   function transferCoins(address _to, uint256 _value) public override returns (bool success) {
     //transfers only coins, if the receiver got less than <payout_per_Week> coins - in this case 5 times
@@ -79,13 +94,13 @@ contract ImpactCoin is Token {
     }else return false;
   }
 
-  function requestCoins(uint _value) public returns (bool success){
+  function requestCoins(uint256 _value) public returns (bool success){
     if (payout[msg.sender] < max_payout){
-    require(balances[address(this)] >= _value, "token balance is lower than the value requested");
-    balances[address(this)] -= _value;
-    balances[msg.sender] += _value;
+      require(balances[address(this)] >= _value, "token balance is lower than the value requested");
+      balances[address(this)] -= _value;
+      balances[msg.sender] += _value;
       payout[msg.sender] += _value;
-    emit Transfer(address(this), msg.sender, _value); //solhint-disable-line indent, no-unused-vars
+      emit Transfer(address(this), msg.sender, _value); //solhint-disable-line indent, no-unused-vars
       return true;
     }else return false;
   }
