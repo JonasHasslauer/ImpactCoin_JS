@@ -71,7 +71,7 @@ contract ImpactCoin is Token {
       reward = factor;
       return reward;
     }else if (_action == 2){
-      //Gehen
+      //Fahrrad
       factor = 1;
       reward = factor * (_emissions / 1000);
       return reward;
@@ -100,7 +100,7 @@ contract ImpactCoin is Token {
       balances[address(this)] -= _value;
       balances[msg.sender] += _value;
       payout[msg.sender] += _value;
-      emit Transfer(address(this), msg.sender, _value); //solhint-disable-line indent, no-unused-vars
+      emit Transfer(address(this), msg.sender, _value);
       return true;
     }else return false;
   }

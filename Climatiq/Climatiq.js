@@ -43,7 +43,7 @@ async function fetchData(url, data, headers) {
     return response.json();
 }
 
-
+/*
 const carOnePerson = new Climatiq(1,
     "passenger_vehicle-vehicle_type_car-fuel_source_bio_petrol-distance_na-engine_size_medium",
     "^0",
@@ -57,3 +57,4 @@ async function getData(){
 
 getData();
 
+*/

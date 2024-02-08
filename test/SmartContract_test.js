@@ -44,7 +44,7 @@ contract("ImpactCoin", (accounts) => {
         );
     });
 
-    it ("receiver should only get coins until the maximum payout is reached", async () => {
+    it ("should only pay coins, until the maximum of earnings is reached", async () => {
 
         const impactCoinInstance_drei = await ImpactCoin.deployed();
         const receiver = accounts[7];
